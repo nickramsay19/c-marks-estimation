@@ -29,4 +29,4 @@ build/Estimation.o: src/Estimation.c
 
 # add all build files including ./main to the clean command
 clean:
-	 rm main build/main.o build/Assessment.o build/Subject.o build/Estimation.o
+	 rm dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o

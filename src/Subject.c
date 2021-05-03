@@ -13,8 +13,13 @@ Subject* createSubject(char* name, Estimation* estimations) {
     strcpy(subject->name, name);
 
     // initialise estimations
-    *subject->estimations = *(Estimation*) malloc(20 * sizeof(Estimation));
+    *subject->estimations = *estimations;
+
 
     // return the newly initialised subject
     return subject;
+}
+
+void freeSubject(Subject* subject) {
+    free(subject->name);
 }

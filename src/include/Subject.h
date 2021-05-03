@@ -3,12 +3,11 @@
 
 #include "Assessment.h"
 #include "Estimation.h"
-#include "Grade.h"
 
 typedef struct Subject {
     char name[20];
     float mark;
-    Grade grade;
+    char grade;
     Estimation estimations[20];
 } Subject;
 
