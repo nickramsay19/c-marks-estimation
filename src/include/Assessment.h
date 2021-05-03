@@ -10,6 +10,6 @@ typedef struct Assessment {
 
 } Assessment;
 
-Subject* createAssessment(char* name, float weight, float value);
+Assessment* createAssessment(char* name, float weight, float value);
 
 #endif

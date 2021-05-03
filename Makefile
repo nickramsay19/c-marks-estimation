@@ -3,12 +3,15 @@
 # All intermediary builds should be directed to the build directory.
 # The final resulting executable should reside in the root directory.
 
-all: main
+all: dist/main
 
 # Produce the final executable
 # Include all required object files
-main: build/main.o build/Assessment.o build/Subject.o
-	 gcc -o main build/main.o build/Assessment.o build/Subject.o
+dist/main: dist build/main.o build/Assessment.o build/Subject.o build/Estimation.o
+	 gcc -o dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o
+
+dist:
+	mkdir dist
 
 # Build an object file for main
 build/main.o: src/main.c
@@ -21,6 +24,9 @@ build/Assessment.o: src/Assessment.c
 build/Subject.o: src/Subject.c
 	gcc -o build/Subject.o -c src/Subject.c
 
+build/Estimation.o: src/Estimation.c
+	gcc -o build/Estimation.o -c src/Estimation.c
+
 # add all build files including ./main to the clean command
 clean:
-	 rm main build/main.o build/Assessment.o build/Subject.o
+	 rm main build/main.o build/Assessment.o build/Subject.o build/Estimation.o

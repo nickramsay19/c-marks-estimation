@@ -1,34 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "include/Assessment.h"
 #include "include/Subject.h"
 #include "include/Grade.h"
 
-int main() {
-    printf("hey\n");
-
-    // overwritten
-    FILE *fptr = fopen("./assessments.bin", "wb");
-    // FILE *fptr = fopen("./assessments.bin", "ab") // append mode
-
-    Subject* math;
-    Assessment* exam;
-    printf("1\n");
-    strcpy(exam->name, "exam");
-    printf("2\n");
-    exam->weight = (float) 1.0;
-    exam->value = (float) 0.51;
-    printf("3\n");
-
-    math->assessments[0] = *exam;
-    math->mark = 0;
-    math->grade = F;
-
+void writeMaths(FILE *fptr) {
+    Assessment* maths_exam = createAssessment("Exam", 1.0, 0.43);
+    Assessment maths_assessments[] = {maths_exam};
+    Estimation* maths_estimation = createEstimation("Realistic", maths_assessments);
+    Subject* maths = createSubject("maths", maths_estimation);
 
     if(fptr != NULL) {
-        //fwrite(math)
+        fwrite(maths, sizeof(Subject), sizeof(maths), fptr);
     }
+}
+
+int main() {
+
+    writeMaths(fptr);
+
+    //FILE *fptr = fopen("./assessments.bin", "ab") // append mode
+    FILE *fptr = fopen("./dist/assessments.bin", "wb");
+    writeMaths(fptr);
+    fclose(fptr);
+    return 0;
+    
+    Subject* subject = (Subject*) malloc(sizeof(Subject));
+    fread(&subject->name, sizeof(subject->name), 1, fptr);
+    printf("%s\n", subject->name);
 
     // close file
     fclose(fptr);
