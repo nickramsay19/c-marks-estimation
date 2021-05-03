@@ -44,32 +44,26 @@ void writeExample(FILE *fp) {
     subjects[2] = *french;
 
     if(fp != NULL) {
-        fwrite(english, 1 * sizeof(Subject), sizeof(english), fp);
-        fwrite(maths, 1 * sizeof(Subject), sizeof(maths), fp);
-        fwrite(french, 1 * sizeof(Subject), sizeof(french), fp);
+        for (int i = 0; i < sizeof(*subjects) / sizeof(Subject); i++) {
+            fwrite(&subjects[i], sizeof(Subject), sizeof(&subjects[i]), fp);
+        }
     } else {
         printf("Error writing to file\n");
     }
-
-    printf("%s\n", english->name);
 }
 
 Subject* getSubjectFromFile(FILE *fp) {
 
-    printf("(0)");
     //Subject* subject = createNullSubject();
     Subject* subject;
 
-    printf("(1)");
     if(fp) {
         subject = (Subject*) malloc(sizeof(Subject));
 
         // get subject details
-        printf("(2)");
         fread(subject->name, sizeof(char), 20, fp);
         fread(&subject->mark, sizeof(float), 1, fp);
         fread(&subject->grade, sizeof(char), 1, fp);
-        printf("(3)");
 
         // move 3 chars across struct padding
         fseek(fp, 3, SEEK_CUR);
@@ -99,25 +93,17 @@ int main(int argc, char** argv) {
 
     fp = (FILE*) fopen("./dist/subjects.bin", "rb");
 
-    Subject subjects[40]; //= (Subject*) malloc(40 * sizeof(Subject));
+    Subject subjects[40];
 
     for (int i = 0; i < 10; i++) { // change to i < 40
         
         subjects[i] = *getSubjectFromFile(fp);
 
-        printf("(");
-        printf("%p, %s", &(subjects[i]), subjects[i].name);
-        printf(")");
-
         if (&(subjects[i]) == NULL) break;
-        printf(".");
 
-        fseek(fp, 7 * 11628, SEEK_CUR);
-        
-        printf("%d\n", i);
+        //fseek(fp, 7 * 11628, SEEK_CUR);
     }
 
-    printf("%lu\n", sizeof(Subject));
     // close file
     fclose(fp);
 
