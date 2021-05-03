@@ -4,6 +4,8 @@
 #include "include/Estimation.h"
 
 Estimation* createEstimation(char* name, Assessment* assessments) {
+
+    // allocate an estimation
     Estimation* estimation = (Estimation*) malloc(sizeof(Estimation));
 
     // initialise name
@@ -12,11 +14,16 @@ Estimation* createEstimation(char* name, Assessment* assessments) {
 
     // initialise assessments
     for (int i = 0; i < 20; i++) {
+
+        // allocate name
         *estimation->assessments[i].name = *(char*) malloc(20);
         strcpy(estimation->assessments[i].name, assessments[i].name);
+
+        // assign weight and value
+        estimation->assessments[i].weight = assessments[i].weight;
+        estimation->assessments[i].value = assessments[i].value;
     }
 
-    printf("%s, %s\n", estimation->assessments[0].name, estimation->assessments[1].name);
-
+    // return the newly allocated estimation
     return estimation;
 }
