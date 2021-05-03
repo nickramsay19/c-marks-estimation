@@ -10,4 +10,6 @@ typedef struct Estimation {
 
 Estimation* createEstimation(char* name, Assessment* asessments);
 
+void freeEstimation(Estimation* estimation);
+
 #endif

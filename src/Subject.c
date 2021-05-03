@@ -28,6 +28,25 @@ Subject* createSubject(char* name, Estimation* estimations) {
     return subject;
 }
 
+Subject* createNullSubject() {
+
+    char* name = "";
+    Estimation* estimations;
+    
+    // return the newly allocated estimation
+    return createSubject(name, estimations);
+}
+
 void freeSubject(Subject* subject) {
+
+    // free the subject name
     free(subject->name);
+
+    // free each estimate
+    for (int i = 0; i < 20; i++) {
+        freeEstimation(&subject->estimations[i]);
+    }
+
+    // finally free the subject
+    //free(subject);
 }

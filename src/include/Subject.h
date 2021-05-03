@@ -12,5 +12,8 @@ typedef struct Subject {
 } Subject;
 
 Subject* createSubject(char* name, Estimation* estimations);
+Subject* createNullSubject();
+
+void freeSubject(Subject* subject);
 
 #endif

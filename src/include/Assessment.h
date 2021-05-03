@@ -12,4 +12,6 @@ typedef struct Assessment {
 
 Assessment* createAssessment(char* name, float weight, float value);
 
+void freeAssessment(Assessment* assessment);
+
 #endif

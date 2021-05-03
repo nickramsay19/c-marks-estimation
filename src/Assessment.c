@@ -20,3 +20,9 @@ Assessment* createAssessment(char* name, float weight, float value) {
     // return allocated assessment
     return assessment;
 }
+
+void freeAssessment(Assessment* assessment) {
+
+    //free(assessment->name);
+    //free(assessment);.
+}

@@ -30,6 +30,8 @@ void writeMaths(FILE *fptr) {
 }
 
 Subject* getSubjectFromFile(FILE *fp) {
+
+    //Subject* subject = createNullSubject();
     Subject* subject = (Subject*) malloc(sizeof(Subject));
 
     // get subject details
@@ -56,12 +58,15 @@ Subject* getSubjectFromFile(FILE *fp) {
 
 int main() {
 
-    //FILE *fp = fopen("./assessments.bin", "ab") // append mode
-    FILE* fp = (FILE*) fopen("./dist/assessments.bin", "rb");
-
-    //FILE* fp = (FILE*) fopen("./dist/assessments.bin", "wb");
-    //writeMaths(fp);
-    //return 0;
+    FILE* fp;
+    const int writeMode = 0;
+    if(writeMode) {
+        fp = (FILE*) fopen("./dist/assessments.bin", "wb");
+        writeMaths(fp);
+        return 0;
+    } else {
+        fp = (FILE*) fopen("./dist/assessments.bin", "rb");
+    }
     
     Subject* subject = getSubjectFromFile(fp);
     
@@ -71,6 +76,9 @@ int main() {
     printf("  * Assessment 1: %s, %f, %f\n", subject->estimations[0].assessments[0].name, subject->estimations[0].assessments[0].weight, subject->estimations[0].assessments[0].value);
     printf("  * Assessment 2: %s, %f, %f\n", subject->estimations[0].assessments[1].name, subject->estimations[0].assessments[1].weight, subject->estimations[0].assessments[1].value);
     
+    // free the subject
+    freeSubject(subject);
+
     // close file
     fclose(fp);
 

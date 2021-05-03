@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "include/Estimation.h"
+#include "include/Assessment.h"
 
 Estimation* createEstimation(char* name, Assessment* assessments) {
 
@@ -11,6 +12,11 @@ Estimation* createEstimation(char* name, Assessment* assessments) {
     // initialise name
     *estimation->name = *(char*) malloc(20);
     strcpy(estimation->name, name);
+
+    /*
+    *estimation->name = (char*) malloc(20 * sizeof(char));
+    strcpy(*estimation->name, name);
+    */
 
     // initialise assessments
     for (int i = 0; i < 20; i++) {
@@ -26,4 +32,18 @@ Estimation* createEstimation(char* name, Assessment* assessments) {
 
     // return the newly allocated estimation
     return estimation;
+}
+
+void freeEstimation(Estimation* estimation) {
+
+    // free estimation name
+    //free(estimation->name);
+
+    // free each assessment
+    for (int i = 0; i < 20; i++) {
+        freeAssessment(&estimation->assessments[i]);
+    }
+
+    // finally free the estimation
+    //free(estimation);
 }
