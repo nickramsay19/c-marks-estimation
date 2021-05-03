@@ -9,10 +9,14 @@ Estimation* createEstimation(char* name, Assessment* assessments) {
     // initialise name
     *estimation->name = *(char*) malloc(20);
     strcpy(estimation->name, name);
-    printf("Estimation name: %s\n", estimation->name);
 
     // initialise assessments
-    *estimation->assessments = *assessments;
+    for (int i = 0; i < 20; i++) {
+        *estimation->assessments[i].name = *(char*) malloc(20);
+        strcpy(estimation->assessments[i].name, assessments[i].name);
+    }
+
+    printf("%s, %s\n", estimation->assessments[0].name, estimation->assessments[1].name);
 
     return estimation;
 }

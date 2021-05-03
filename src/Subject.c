@@ -12,9 +12,17 @@ Subject* createSubject(char* name, Estimation* estimations) {
     *subject->name = *(char*) malloc(20 * sizeof(char));
     strcpy(subject->name, name);
 
-    // initialise estimations
-    *subject->estimations = *estimations;
+    // initialise grade
+    subject->mark = 0.0;
+    subject->grade = 'N';
 
+    // initialise estimations
+    *subject->estimations = *(Estimation*) malloc(20 * sizeof(Estimation));
+    
+    int estimations_count = sizeof(*estimations) / sizeof(Estimation);
+    for (int i = 0; i < estimations_count; i++) {
+        subject->estimations[i] = *createEstimation(estimations[i].name, estimations[i].assessments);
+    }
 
     // return the newly initialised subject
     return subject;
