@@ -18,5 +18,6 @@ cd dist
 * handle arg options
 * change name from array to char pointer in other files
 * check for memory leaks
+* print table formatted subject details
 
 

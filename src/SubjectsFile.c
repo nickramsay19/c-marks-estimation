@@ -124,6 +124,27 @@ int addSubject(SubjectsFile* subjectsFile, Subject subject) {
     return 0;
 }
 
+int removeSubject(SubjectsFile* subjectsFile, Subject subject) {
+
+    // loop through subjects until subject found
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has the same name as subject
+        // TODO: we wont find subjects with bugged names
+        if (strcmp(subjectsFile->subjects[i].name, subject.name) == 0) {
+            
+            // add the subject
+            subjectsFile->subjects[i] = *createNullSubject();
+
+            // we found the subject, return success code
+            return 1;
+        }
+    }
+
+    // return failure value
+    return 0;
+}
+
 void printSubjectsDetails(SubjectsFile* subjectsFile) {
 
     // loop through subjects
@@ -138,6 +159,38 @@ void printSubjectsDetails(SubjectsFile* subjectsFile) {
 
         }
     }
+}
+
+int _writeSubjectsToFile(SubjectsFile* subjectsFile) {
+
+    // open file in write mode
+    subjectsFile->fp = (FILE*) fopen(subjectsFile->name, "wb");
+    
+    // check that file has been opened successfully
+    if(subjectsFile->fp != NULL) {
+
+        // loop through all subjects individually
+        for (int i = 0; i < sizeof(*subjectsFile->subjects) / sizeof(Subject); i++) {
+
+            // write each subject
+            fwrite(&subjectsFile->subjects[i], sizeof(Subject), sizeof(&subjectsFile->subjects[i]), subjectsFile->fp);
+        }
+
+        // close the file
+        fclose(subjectsFile->fp);
+
+        // return success code
+        return 1;
+    } else {
+
+        // close the file
+        fclose(subjectsFile->fp);
+
+        // return error code
+        return 0;
+    }
+
+    
 }
 
 void _writeExamplesToFile(SubjectsFile* subjectsFile) {

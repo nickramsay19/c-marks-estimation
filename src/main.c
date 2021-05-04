@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
     SubjectsFile* subjectsFile = createSubjectsFile("./dist/subjects.bin");
 
     // write some hardcoded subjects
-    _writeExamplesToFile(subjectsFile);
+    //_writeExamplesToFile(subjectsFile);
 
     // add another hardcoded subject
     Assessment spanish_assessments[20];
@@ -22,8 +22,13 @@ int main(int argc, char** argv) {
     Estimation spanish_estimations[20];
     spanish_estimations[0] = *createEstimation("default", spanish_assessments);
 
-    Subject* spanish = createSubject("spanish", spanish_estimations);
-    addSubject(subjectsFile, *spanish);
+    //Subject* spanish = createSubject("spanish2", spanish_estimations);
+    //addSubject(subjectsFile, *spanish);
+
+
+    //_writeSubjectsToFile(subjectsFile);
+
+    //removeSubject(subjectsFile, *spanish);
 
     // print subject details
     printSubjectsDetails(subjectsFile);
@@ -37,24 +42,26 @@ int main(int argc, char** argv) {
     } else if (strcmp(argv[1], "subject") == 0 || strcmp(argv[1], "s") == 0) {
         printf("Subject menu.\n");
 
-        // handle subject addition
-        if (strcmp(argv[2], "add") == 0) {
-            printf("add\n");
+        // check that there are more than 3 args
+        if (argc > 2) {
+            // handle subject addition
+            if (strcmp(argv[2], "add") == 0) {
+                printf("add\n");
 
-        // handle subject removal
-        } else if (strcmp(argv[2], "rm") == 0) {
-            printf("rm\n");
+            // handle subject removal
+            } else if (strcmp(argv[2], "rm") == 0) {
+                printf("rm\n");
 
-        // handle list subjects
-        } else if (strcmp(argv[2], "list") == 0) {
-            printf("listing all subjects\n");
+            // handle list subjects
+            } else if (strcmp(argv[2], "list") == 0) {
+                printf("listing all subjects\n");
 
-        // handle subject selection
-        } else {
-            printf("subject selection\n");
+            // handle subject selection
+            } else {
+                printf("subject selection\n");
 
+            }
         }
-
     // handle unknown command
     } else {
         printf("Unknown command.\n");
