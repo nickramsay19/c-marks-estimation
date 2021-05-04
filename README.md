@@ -6,6 +6,13 @@ This project stores marks attained and marks estimated for university subjects i
 2. C is suitable for binary file interaction; and
 3. C is suitable for memory management, thus leaving a small memory footprint in the running of the program.
 
+## Building and Execution
+```
+make all
+cd dist
+./main
+```
+
 ## todo
 * remove stdio.h includes in files that don't need it for non-debugging use
 * handle arg options
