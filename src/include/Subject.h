@@ -16,4 +16,6 @@ Subject* createNullSubject();
 
 void freeSubject(Subject* subject);
 
+void printSubjectDetails(Subject subject);
+
 #endif

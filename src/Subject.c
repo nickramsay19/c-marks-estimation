@@ -50,3 +50,11 @@ void freeSubject(Subject* subject) {
     // finally free the subject
     //free(subject);
 }
+
+void printSubjectDetails(Subject subject) {
+    printf("Subject: %s\n", subject.name);
+    printf("  Mark: %f, Grade: %c\n", subject.mark, subject.grade);
+    printf("  Estimation: %s\n", subject.estimations[0].name);
+    printf("  * Assessment 1: %s, %f, %f\n", subject.estimations[0].assessments[0].name, subject.estimations[0].assessments[0].weight, subject.estimations[0].assessments[0].value);
+    printf("  * Assessment 2: %s, %f, %f\n", subject.estimations[0].assessments[1].name, subject.estimations[0].assessments[1].weight, subject.estimations[0].assessments[1].value);
+}

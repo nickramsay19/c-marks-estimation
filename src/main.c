@@ -4,121 +4,20 @@
 
 #include "include/Assessment.h"
 #include "include/Subject.h"
-
-void writeExample(FILE *fp) {
-
-    // math
-    Assessment maths_assessments[20];
-    maths_assessments[0] = *createAssessment("Exam", 0.5, 0.43);
-    maths_assessments[1] = *createAssessment("Asn1", 0.5, 0.2);
-
-    Estimation maths_estimations[20];
-    maths_estimations[0] = *createEstimation("Realistic", maths_assessments);
-
-    Subject* maths = createSubject("maths", maths_estimations);
-
-    // english
-    Assessment english_assessments[20];
-    english_assessments[0] = *createAssessment("Exam", 0.5, 0.43);
-    english_assessments[1] = *createAssessment("Asn1", 0.5, 0.2);
-
-    Estimation english_estimations[20];
-    english_estimations[0] = *createEstimation("Realistic", english_assessments);
-
-    Subject* english = createSubject("english", english_estimations);
-
-    // french
-    Assessment french_assessments[20];
-    french_assessments[0] = *createAssessment("Exam", 0.5, 0.43);
-    french_assessments[1] = *createAssessment("Asn1", 0.5, 0.2);
-
-    Estimation french_estimations[20];
-    french_estimations[0] = *createEstimation("Realistic", french_assessments);
-
-    Subject* french = createSubject("french", french_estimations);
-
-    // subjects arr
-    Subject* subjects = (Subject*) malloc(2 * sizeof(Subject));
-    subjects[0] = *english;
-    subjects[1] = *maths;
-    subjects[2] = *french;
-
-    if(fp != NULL) {
-        for (int i = 0; i < sizeof(*subjects) / sizeof(Subject); i++) {
-            fwrite(&subjects[i], sizeof(Subject), sizeof(&subjects[i]), fp);
-        }
-    } else {
-        printf("Error writing to file\n");
-    }
-}
-
-Subject* getSubjectFromFile(FILE *fp) {
-
-    //Subject* subject = createNullSubject();
-    Subject* subject;
-
-    if(fp) {
-        subject = (Subject*) malloc(sizeof(Subject));
-
-        // get subject details
-        fread(subject->name, sizeof(char), 20, fp);
-        fread(&subject->mark, sizeof(float), 1, fp);
-        fread(&subject->grade, sizeof(char), 1, fp);
-
-        // move 3 chars across struct padding
-        fseek(fp, 3, SEEK_CUR);
-
-        // get estimations
-        for (int i = 0; i < 20; i++) {
-            fread(&subject->estimations[i].name, sizeof(char), 20, fp);
-
-            // get assessment details for each assessment
-            for (int j = 0; j < 20; j++) {
-                fread(&subject->estimations[i].assessments[j], sizeof(Assessment), 1, fp);
-            }
-        }
-    } else {
-        return NULL;
-    }
-
-    // return the subject
-    return subject;
-}
+#include "include/SubjectsFile.h"
 
 int main(int argc, char** argv) {
 
-    FILE* fp = (FILE*) fopen("./dist/subjects.bin", "wb");
-    writeExample(fp);
-    fclose(fp);
+    // read subjects into array of subjects
+    SubjectsFile* subjectsFile = createSubjectsFile("./dist/subjects.bin");
 
-    fp = (FILE*) fopen("./dist/subjects.bin", "rb");
+    // write some hardcoded subjects
+    _writeExamplesToFile(subjectsFile);
 
-    Subject subjects[40];
-
-    for (int i = 0; i < 10; i++) { // change to i < 40
-        
-        subjects[i] = *getSubjectFromFile(fp);
-
-        if (&(subjects[i]) == NULL) break;
-
-        //fseek(fp, 7 * 11628, SEEK_CUR);
-    }
-
-    // close file
-    fclose(fp);
-
-    printf("Subject: %s\n", subjects[0].name);
-    printf("  Mark: %f, Grade: %c\n", subjects[0].mark, subjects[0].grade);
-    printf("  Estimation: %s\n", subjects[0].estimations[0].name);
-    printf("  * Assessment 1: %s, %f, %f\n", subjects[0].estimations[0].assessments[0].name, subjects[0].estimations[0].assessments[0].weight, subjects[0].estimations[0].assessments[0].value);
-    printf("  * Assessment 2: %s, %f, %f\n", subjects[0].estimations[0].assessments[1].name, subjects[0].estimations[0].assessments[1].weight, subjects[0].estimations[0].assessments[1].value);
-    
-    printf("Subject: %s\n", subjects[8].name);
-    printf("  Mark: %f, Grade: %c\n", subjects[1].mark, subjects[1].grade);
-    printf("  Estimation: %s\n", subjects[1].estimations[0].name);
-    printf("  * Assessment 1: %s, %f, %f\n", subjects[1].estimations[0].assessments[0].name, subjects[1].estimations[0].assessments[0].weight, subjects[1].estimations[0].assessments[0].value);
-    printf("  * Assessment 2: %s, %f, %f\n", subjects[1].estimations[0].assessments[1].name, subjects[1].estimations[0].assessments[1].weight, subjects[1].estimations[0].assessments[1].value);
-    
+    // print subject details
+    printSubjectDetails(subjectsFile->subjects[0]);
+    printSubjectDetails(subjectsFile->subjects[1]);
+    printSubjectDetails(subjectsFile->subjects[2]);
 
     // handle command line args
     // handle help dialog
@@ -136,38 +35,21 @@ int main(int argc, char** argv) {
         // handle subject removal
         } else if (strcmp(argv[2], "rm") == 0) {
             printf("rm\n");
+
+        // handle list subjects
+        } else if (strcmp(argv[2], "list") == 0) {
+            printf("listing all subjects\n");
+
+        // handle subject selection
+        } else {
+            printf("subject selection\n");
+
         }
 
     // handle unknown command
     } else {
         printf("Unknown command.\n");
     }
-
-    return 0;
-
-    // handle file read/write
-    const int writeMode = 0;
-    if(writeMode) {
-        fp = (FILE*) fopen("./dist/subjects.bin", "wb");
-        //writeMaths(fp);
-        return 0;
-    } else {
-        fp = (FILE*) fopen("./dist/subjects.bin", "rb");
-    }
-    
-    Subject* subject = getSubjectFromFile(fp);
-    
-    printf("Subject: %s\n", subject->name);
-    printf("  Mark: %f, Grade: %c\n", subject->mark, subject->grade);
-    printf("  Estimation: %s\n", subject->estimations[0].name);
-    printf("  * Assessment 1: %s, %f, %f\n", subject->estimations[0].assessments[0].name, subject->estimations[0].assessments[0].weight, subject->estimations[0].assessments[0].value);
-    printf("  * Assessment 2: %s, %f, %f\n", subject->estimations[0].assessments[1].name, subject->estimations[0].assessments[1].weight, subject->estimations[0].assessments[1].value);
-    
-    // free the subject
-    freeSubject(subject);
-
-    // close file
-    fclose(fp);
 
     return 0;
 }
