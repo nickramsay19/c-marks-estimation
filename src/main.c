@@ -8,8 +8,6 @@
 
 int main(int argc, char** argv) {
 
-    printf("%d\n", 0.000 == 0);
-
     // read subjects into array of subjects
     SubjectsFile* subjectsFile = createSubjectsFile("./dist/subjects.bin");
 
@@ -28,10 +26,7 @@ int main(int argc, char** argv) {
     addSubject(subjectsFile, *spanish);
 
     // print subject details
-    printSubjectDetails(subjectsFile->subjects[0]);
-    printSubjectDetails(subjectsFile->subjects[1]);
-    printSubjectDetails(subjectsFile->subjects[2]);
-    printSubjectDetails(subjectsFile->subjects[3]);
+    printSubjectsDetails(subjectsFile);
 
     // handle command line args
     // handle help dialog

@@ -124,6 +124,22 @@ int addSubject(SubjectsFile* subjectsFile, Subject subject) {
     return 0;
 }
 
+void printSubjectsDetails(SubjectsFile* subjectsFile) {
+
+    // loop through subjects
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has a name
+        // TODO: we wont find subjects with bugged names
+        if (strcmp(subjectsFile->subjects[i].name, "") != 0) {
+            
+            // print the subject details
+            printSubjectDetails(subjectsFile->subjects[i]);
+
+        }
+    }
+}
+
 void _writeExamplesToFile(SubjectsFile* subjectsFile) {
 
     // math

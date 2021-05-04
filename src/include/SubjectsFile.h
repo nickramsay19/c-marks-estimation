@@ -21,6 +21,8 @@ Subject* _getSubjectFromFile(SubjectsFile* subjectsFile);
 
 int addSubject(SubjectsFile* subjectsFile, Subject subject);
 
+void printSubjectsDetails(SubjectsFile* subjectsFile);
+
 void _writeExamplesToFile(SubjectsFile* subjectsFile);
 
 #endif
