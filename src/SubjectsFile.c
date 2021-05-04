@@ -26,6 +26,24 @@ SubjectsFile* createSubjectsFile(char* name) {
     return subjectsFile;
 }
 
+void freeSubjectsFile(SubjectsFile* subjectsFile) {
+
+    // free the subjectsFile's name
+    free(subjectsFile->name);
+
+    // free each subjectsFile subject
+    //for (int i = 0; i < 10; i++) {
+        //freeSubject(&(subjectsFile->subjects[i]));
+    //}
+
+    // free the subjectsFile's subjects array
+    //free(subjectsFile->subjects);
+
+    // finally free the subjectsFile
+    free(subjectsFile);
+    
+}
+
 Subject* getSubjectsArray(SubjectsFile* subjectsFile){
 
     // open the file
@@ -85,6 +103,27 @@ Subject* _getSubjectFromFile(SubjectsFile* subjectsFile) {
     return subject;
 }
 
+int addSubject(SubjectsFile* subjectsFile, Subject subject) {
+
+    // loop through subjects until a space is found
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has no name
+        // TODO: we wont find subjects with bugged names
+        if (strcmp(subjectsFile->subjects[i].name, "") == 0) {
+            
+            // add the subject
+            subjectsFile->subjects[i] = subject;
+
+            // we found a space for the subject, return success code
+            return 1;
+        }
+    }
+
+    // return failure value
+    return 0;
+}
+
 void _writeExamplesToFile(SubjectsFile* subjectsFile) {
 
     // math
@@ -114,7 +153,7 @@ void _writeExamplesToFile(SubjectsFile* subjectsFile) {
     french_assessments[1] = *createAssessment("Asn1", 0.5, 0.2);
 
     Estimation french_estimations[20];
-    french_estimations[0] = *createEstimation("Realistic", french_assessments);
+    french_estimations[0] = *createEstimation("default", french_assessments);
 
     Subject* french = createSubject("french", french_estimations);
 

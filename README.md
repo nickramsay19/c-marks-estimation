@@ -13,9 +13,10 @@ cd dist
 ./main
 ```
 
-## todo
+## Todo
 * remove stdio.h includes in files that don't need it for non-debugging use
 * handle arg options
 * change name from array to char pointer in other files
+* check for memory leaks
 
 

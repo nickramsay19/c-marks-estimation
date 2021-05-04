@@ -8,16 +8,30 @@
 
 int main(int argc, char** argv) {
 
+    printf("%d\n", 0.000 == 0);
+
     // read subjects into array of subjects
     SubjectsFile* subjectsFile = createSubjectsFile("./dist/subjects.bin");
 
     // write some hardcoded subjects
     _writeExamplesToFile(subjectsFile);
 
+    // add another hardcoded subject
+    Assessment spanish_assessments[20];
+    spanish_assessments[0] = *createAssessment("Exam", 0.7, 0.81);
+    spanish_assessments[1] = *createAssessment("Asn1", 0.3, 0.99);
+
+    Estimation spanish_estimations[20];
+    spanish_estimations[0] = *createEstimation("default", spanish_assessments);
+
+    Subject* spanish = createSubject("spanish", spanish_estimations);
+    addSubject(subjectsFile, *spanish);
+
     // print subject details
     printSubjectDetails(subjectsFile->subjects[0]);
     printSubjectDetails(subjectsFile->subjects[1]);
     printSubjectDetails(subjectsFile->subjects[2]);
+    printSubjectDetails(subjectsFile->subjects[3]);
 
     // handle command line args
     // handle help dialog
@@ -50,6 +64,9 @@ int main(int argc, char** argv) {
     } else {
         printf("Unknown command.\n");
     }
+
+    // free the subjects file
+    freeSubjectsFile(subjectsFile);
 
     return 0;
 }

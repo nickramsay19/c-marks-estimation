@@ -13,9 +13,13 @@ typedef struct SubjectsFile {
 
 SubjectsFile* createSubjectsFile(char* name);
 
+void freeSubjectsFile(SubjectsFile* subjectsFile);
+
 Subject* getSubjectsArray(SubjectsFile* subjectsFile);
 
 Subject* _getSubjectFromFile(SubjectsFile* subjectsFile);
+
+int addSubject(SubjectsFile* subjectsFile, Subject subject);
 
 void _writeExamplesToFile(SubjectsFile* subjectsFile);
 

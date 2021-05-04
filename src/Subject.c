@@ -52,9 +52,34 @@ void freeSubject(Subject* subject) {
 }
 
 void printSubjectDetails(Subject subject) {
+
+    // print subject details
     printf("Subject: %s\n", subject.name);
     printf("  Mark: %f, Grade: %c\n", subject.mark, subject.grade);
-    printf("  Estimation: %s\n", subject.estimations[0].name);
-    printf("  * Assessment 1: %s, %f, %f\n", subject.estimations[0].assessments[0].name, subject.estimations[0].assessments[0].weight, subject.estimations[0].assessments[0].value);
-    printf("  * Assessment 2: %s, %f, %f\n", subject.estimations[0].assessments[1].name, subject.estimations[0].assessments[1].weight, subject.estimations[0].assessments[1].value);
+
+    // print each estimation details
+    for (int i = 0; i < 20; i++) {
+
+        // check if the estimation is valid (has a name)
+        if(strcmp(subject.estimations[i].name, "") != 0) {
+
+            // print the name of the estimation
+            printf("  Estimation: %s\n", subject.estimations[i].name);
+
+            // print each assessment in estimation
+            for (int j = 0; j < 20; j++) {
+
+                // check if the subject is valid (has a name, positive non-zero mark and weight)
+                if(strcmp(subject.estimations[i].assessments[j].name, "") != 0 && subject.estimations[i].assessments[j].weight > 0.001 && subject.estimations[i].assessments[j].value > 0.001) {
+
+                    // print assessment name and details
+                    printf("  * %s: %f, %f\n", subject.estimations[i].assessments[j].name, subject.estimations[i].assessments[j].weight, subject.estimations[i].assessments[j].value);
+                } else {
+                    //break; // assessments could exist later if an assessment has been removed at (i,j) previously
+                }
+            }
+        } else {
+            //break; // estimations could exist later if an estimation has been removed at i previously
+        }
+    }
 }
