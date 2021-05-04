@@ -83,3 +83,45 @@ void printSubjectDetails(Subject subject) {
         }
     }
 }
+
+void calculateMarks(Subject* subject) {
+
+    // check that subject isn't a null subject
+    if (strcmp(subject->name, "") == 0) {
+        return;
+    }
+
+    // loop through each estimation
+    for (int i = 0; i < 20; i++) {
+
+        // check that estimation i is valid (has a name)
+        if (strcmp(subject->estimations[i].name, "") == 0) {
+
+            float totalMarks = 0;
+
+            // loop through each assessment
+            for (int j = 0; j < 20; j++) {
+                
+                // check if the assessment is valid (has a name, positive non-zero mark and weight)
+                if(strcmp(subject->estimations[i].assessments[j].name, "") != 0 && subject->estimations[i].assessments[j].weight > 0.001 && subject->estimations[i].assessments[j].value > 0.001) {
+
+                    // add the marks attained
+                    totalMarks += subject->estimations[i].assessments[j].weight * subject->estimations[i].assessments[j].value;
+                }
+            }
+
+            // change subject mark and grade values
+            // oh no
+            //subject->estimations[i].
+        }
+    }
+}
+
+char calculateGrade(float mark) {
+    if (mark >= 0.85) return 'H';
+    else if (mark >= 0.75) return 'D';
+    else if (mark >= 0.65) return 'C';
+    else if (mark >= 0.5) return 'P';
+    else if (mark >= 0) return 'F';
+    else return 'N';
+}

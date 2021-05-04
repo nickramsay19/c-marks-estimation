@@ -18,4 +18,8 @@ void freeSubject(Subject* subject);
 
 void printSubjectDetails(Subject subject);
 
+void calculateMarks(Subject* subject);
+
+char calculateGrade(float mark);
+
 #endif

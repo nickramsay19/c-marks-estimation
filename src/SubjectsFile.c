@@ -103,6 +103,43 @@ Subject* _getSubjectFromFile(SubjectsFile* subjectsFile) {
     return subject;
 }
 
+Subject* getSubjectByName(SubjectsFile* subjectsFile, char* name) {
+
+    // for some reason this print fixes the illegal hardware instruction error
+    printf("");
+
+    // loop through subjects until subject found
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has name as name
+        if (strcmp(subjectsFile->subjects[i].name, name) == 0) {
+            
+            // return the found subject
+            return &subjectsFile->subjects[i];
+        }
+    }
+
+    // return failure value
+    return createNullSubject();
+}
+
+int doesSubjectExistByName(SubjectsFile* subjectsFile, char* name) {
+
+    // loop through subjects until subject found
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has name as name
+        if (strcmp(subjectsFile->subjects[i].name, name) == 0) {
+            
+            // we found the subject, return success code
+            return 1;
+        }
+    }
+
+    // return failure value
+    return 0;
+}
+
 int addSubject(SubjectsFile* subjectsFile, Subject subject) {
 
     // loop through subjects until a space is found
@@ -145,6 +182,26 @@ int removeSubject(SubjectsFile* subjectsFile, Subject subject) {
     return 0;
 }
 
+int removeSubjectByName(SubjectsFile* subjectsFile, char* name) {
+
+    // loop through subjects until subject found
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has name as name
+        if (strcmp(subjectsFile->subjects[i].name, name) == 0) {
+            
+            // add the subject
+            subjectsFile->subjects[i] = *createNullSubject();
+
+            // we found the subject, return success code
+            return 1;
+        }
+    }
+
+    // return failure value
+    return 0;
+}
+
 void printSubjectsDetails(SubjectsFile* subjectsFile) {
 
     // loop through subjects
@@ -156,6 +213,22 @@ void printSubjectsDetails(SubjectsFile* subjectsFile) {
             
             // print the subject details
             printSubjectDetails(subjectsFile->subjects[i]);
+
+        }
+    }
+}
+
+void printSubjectsNames(SubjectsFile* subjectsFile) {
+    // loop through subjects
+    for (int i = 0; i < 10; i++) {
+
+        // check if subject i has a name
+        // TODO: we wont find subjects with bugged names
+        if (strcmp(subjectsFile->subjects[i].name, "") != 0) {
+            
+            // print the subject details
+            //printSubjectDetails(subjectsFile->subjects[i]);
+            printf("* %s\n", subjectsFile->subjects[i].name);
 
         }
     }

@@ -3,7 +3,7 @@
 # All intermediary builds should be directed to the build directory.
 # The final resulting executable should reside in the root directory.
 
-all: dist/main
+all: dist/main 
 
 # Produce the final executable
 # Include all required object files

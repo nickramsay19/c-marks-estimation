@@ -19,5 +19,7 @@ cd dist
 * change name from array to char pointer in other files
 * check for memory leaks
 * print table formatted subject details
+* subject of name "list" should be disallowed
+* estimation of name "default" should be disallowed
 
 
