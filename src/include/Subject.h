@@ -6,8 +6,6 @@
 
 typedef struct Subject {
     char name[20];
-    float mark;
-    char grade;
     Estimation estimations[20];
 } Subject;
 
@@ -17,9 +15,5 @@ Subject* createNullSubject();
 void freeSubject(Subject* subject);
 
 void printSubjectDetails(Subject subject);
-
-void calculateMarks(Subject* subject);
-
-char calculateGrade(float mark);
 
 #endif
