@@ -10,7 +10,6 @@ int main(int argc, char** argv) {
 
     // read subjects into array of subjects
     SubjectsFile* subjectsFile = createSubjectsFile("/Users/nickramsay/Documents/Projects/c-marks-estimation/dist/subjects.bin");
-    _writeExamplesToFile(subjectsFile);
 
     /*
     // write some hardcoded subjects
