@@ -15,8 +15,7 @@ Subject* createSubject(char* name, Estimation* estimations) {
     // initialise estimations
     *subject->estimations = *(Estimation*) malloc(20 * sizeof(Estimation));
     
-    int estimations_count = sizeof(*estimations) / sizeof(Estimation);
-    for (int i = 0; i < estimations_count; i++) {
+    for (int i = 0; i < 20; i++) {
         subject->estimations[i] = *createEstimation(estimations[i].name, estimations[i].assessments);
     }
 

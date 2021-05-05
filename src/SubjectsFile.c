@@ -296,17 +296,25 @@ void _writeExamplesToFile(SubjectsFile* subjectsFile) {
     french_assessments[0] = *createAssessment("Exam", 0.5, 0.43);
     french_assessments[1] = *createAssessment("Asn1", 0.5, 0.2);
 
+    Assessment french_assessments2[20];
+    french_assessments2[0] = *createAssessment("Exam", 0.5, 0.50);
+    french_assessments2[1] = *createAssessment("Asn1", 0.5, 0.30);
+
     Estimation french_estimations[20];
     french_estimations[0] = *createEstimation("default", french_assessments);
+    french_estimations[1] = *createEstimation("optimistic", french_assessments2);
 
     Subject* french = createSubject("french", french_estimations);
+
+    for (int i = 0; i < 3; i++) {
+        printf("%s\n", french->estimations[i].name);
+    }
 
     // subjects arr
     Subject* subjects = (Subject*) malloc(2 * sizeof(Subject));
     subjects[0] = *english;
     subjects[1] = *maths;
     subjects[2] = *french;
-
 
     subjectsFile->fp = (FILE*) fopen(subjectsFile->name, "wb");
     
