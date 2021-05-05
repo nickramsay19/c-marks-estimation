@@ -306,10 +306,6 @@ void _writeExamplesToFile(SubjectsFile* subjectsFile) {
 
     Subject* french = createSubject("french", french_estimations);
 
-    for (int i = 0; i < 3; i++) {
-        printf("%s\n", french->estimations[i].name);
-    }
-
     // subjects arr
     Subject* subjects = (Subject*) malloc(2 * sizeof(Subject));
     subjects[0] = *english;
