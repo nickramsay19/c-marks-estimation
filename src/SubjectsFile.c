@@ -80,15 +80,17 @@ Subject* _getSubjectFromFile(SubjectsFile* subjectsFile) {
 
         // get subject details
         fread(subject->name, sizeof(char), 20, subjectsFile->fp);
-        fread(&subject->mark, sizeof(float), 1, subjectsFile->fp);
-        fread(&subject->grade, sizeof(char), 1, subjectsFile->fp);
 
         // move 3 chars across struct padding
         fseek(subjectsFile->fp, 3, SEEK_CUR);
 
         // get estimations
         for (int i = 0; i < 20; i++) {
-            fread(&subject->estimations[i].name, sizeof(char), 20, subjectsFile->fp);
+
+            // read he estimation details
+            fread(&subject->estimations[i].name, sizeof(char), 20, subjectsFile->fp); // estimation name
+            fread(&subject->estimations[i].mark, sizeof(float), 1, subjectsFile->fp); // estimation mark
+            fread(&subject->estimations[i].grade, sizeof(char), 1, subjectsFile->fp); // estimation grade
 
             // get assessment details for each assessment
             for (int j = 0; j < 20; j++) {
@@ -219,6 +221,7 @@ void printSubjectsDetails(SubjectsFile* subjectsFile) {
 }
 
 void printSubjectsNames(SubjectsFile* subjectsFile) {
+    
     // loop through subjects
     for (int i = 0; i < 10; i++) {
 

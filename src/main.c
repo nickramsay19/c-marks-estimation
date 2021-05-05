@@ -10,6 +10,7 @@ int main(int argc, char** argv) {
 
     // read subjects into array of subjects
     SubjectsFile* subjectsFile = createSubjectsFile("/Users/nickramsay/Documents/Projects/c-marks-estimation/dist/subjects.bin");
+    _writeExamplesToFile(subjectsFile);
 
     /*
     // write some hardcoded subjects
@@ -65,7 +66,7 @@ int main(int argc, char** argv) {
                 // handle list subjects
                 } else if (strcmp(argv[2], "list") == 0) {
                     printf("listing all subjects\n");
-
+                    
                     // print subject details
                     printSubjectsNames(subjectsFile);
 
@@ -74,7 +75,7 @@ int main(int argc, char** argv) {
                     
                     // check if arg[2] is a subject
                     Subject* s = getSubjectByName(subjectsFile, argv[2]);
-                    
+
                     if (strcmp(s->name, "") == 0) {
                         printf("No subject of name \"%s\"\n", argv[2]);
                     } else {
