@@ -32,8 +32,7 @@ Estimation* createEstimation(char* name, Assessment* assessments) {
 
     // initialise grade
     // TODO: calculate marks here
-    estimation->mark = 0.0;
-    estimation->grade = 'N';
+    calculateMarks(estimation);
 
     // return the newly allocated estimation
     return estimation;
