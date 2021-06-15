@@ -7,8 +7,8 @@ all: dist/main
 
 # Produce the final executable
 # Include all required object files
-dist/main: dist build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o
-	 gcc -o dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o
+dist/main: dist build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o build/ArgumentParser.o
+	 gcc -o dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o build/ArgumentParser.o
 
 dist:
 	mkdir dist
@@ -33,6 +33,9 @@ build/SubjectsFile.o: src/SubjectsFile.c
 build/Interface.o: src/Interface.c
 	gcc -o build/Interface.o -c src/Interface.c
 
+build/ArgumentParser.o: src/ArgumentParser.c
+	gcc -o build/ArgumentParser.o -c src/ArgumentParser.c
+
 # add all build files including ./main to the clean command
 clean:
-	 rm dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o
+	 rm dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o ArgumentParser.o
