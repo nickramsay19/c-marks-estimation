@@ -6,6 +6,7 @@
 #include "include/Subject.h"
 #include "include/SubjectsFile.h"
 #include "include/Interface.h"
+#include "include/ArgumentParser.h"
 
 int main(int argc, char** argv) {
 
@@ -62,8 +63,8 @@ int main(int argc, char** argv) {
                             while(1) {
 
                                 // obtain new estimation name
-                                printf("Enter the name of the next estimation to be added; or enter nothing to finish.");
-                                getLine(new_estimation_name);
+                                printf("Enter the name of the next estimation to be added; or enter nothing to finish.\n");
+                                getLine(&new_estimation_name);
 
                                 // check if no estimation being added
                                 if(strcmp(new_estimation_name, "") == 0) break;
@@ -72,7 +73,10 @@ int main(int argc, char** argv) {
                                 estimations[current_estimation++] = *generateEstimation(new_estimation_name);
                             }
 
-                            
+                            // now add the subject
+                            addSubject(subjectsFile, *createSubject(argv[3], &estimations));
+                            _writeSubjectsToFile(subjectsFile);
+                            // BUG: still not writing
 
                         } else {
                             printf("Error: A subject already exists with name \"%s\".\n", argv[3]);
@@ -106,9 +110,15 @@ int main(int argc, char** argv) {
 
                 }
             }
+        
+        } else if (strcmp(argv[1], "estimation") == 0 || strcmp(argv[1], "e") == 0) {
+            
+            
         // handle unknown command
         } else {
             printf("Unknown command.\n");
+
+        // handle overview
         }
 
     // no arguments passed
