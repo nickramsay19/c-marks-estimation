@@ -144,6 +144,8 @@ int doesSubjectExistByName(SubjectsFile* subjectsFile, char* name) {
 
 int addSubject(SubjectsFile* subjectsFile, Subject subject) {
 
+    printf("addSubject Called\n");
+
     // loop through subjects until a space is found
     for (int i = 0; i < 10; i++) {
 
@@ -155,10 +157,11 @@ int addSubject(SubjectsFile* subjectsFile, Subject subject) {
             subjectsFile->subjects[i] = subject;
 
             // we found a space for the subject, return success code
+            printf("addSubject Finished\n");
             return 1;
         }
     }
-
+    printf("addSubject Finished\n");
     // return failure value
     return 0;
 }

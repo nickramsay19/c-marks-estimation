@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "include/Interface.h"
@@ -29,6 +30,7 @@ void clearStr(char* str, int length) {
 }
 
 Estimation* generateEstimation(char* name) {
+    
     // declare some vars to store obtained assinment information
     char asn_inf[50], asn_name[30], asn_weight_str[10], asn_value_str[10];
     float asn_weight, asn_value;

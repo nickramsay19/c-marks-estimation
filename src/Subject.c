@@ -6,6 +6,7 @@
 #include "include/Estimation.h"
 
 Subject* createSubject(char* name, Estimation* estimations) {
+
     Subject* subject = (Subject*) malloc(sizeof(Subject));
 
     // initialise name
@@ -14,11 +15,13 @@ Subject* createSubject(char* name, Estimation* estimations) {
 
     // initialise estimations
     *subject->estimations = *(Estimation*) malloc(20 * sizeof(Estimation));
+    printf("4.\n");
     
-    for (int i = 0; i < 20; i++) {
+    // TODO: fix bug where i cannot exceed 18 or addition from interface bugs out
+    for (int i = 0; i < 18; i++) {
         subject->estimations[i] = *createEstimation(estimations[i].name, estimations[i].assessments);
     }
-
+    
     // return the newly initialised subject
     return subject;
 }
