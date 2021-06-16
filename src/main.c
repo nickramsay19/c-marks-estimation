@@ -75,8 +75,9 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state) {
     return 0;
 }
 
+
 // Our argp parser
-static struct argp argp = { options, parse_opt, args_doc, doc };
+static struct argp Argp = { options, parse_opt, args_doc, doc };
 
 int main(int argc, char** argv) {
 
@@ -93,7 +94,7 @@ int main(int argc, char** argv) {
 
     //Parse our arguments; every option seen by parse_opt will
     //be reflected in arguments.
-    argp_parse(&argp, argc, argv, 0, 0, &arguments);
+    argp_parse(&Argp, argc, argv, 0, 0, &arguments);
 
     printf ("ARG1 = %s\nARG2 = %s\nOUTPUT_FILE = %s\n"
             "VERBOSE = %s\nSILENT = %s\n",
