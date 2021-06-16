@@ -4,7 +4,8 @@
 # The final resulting executable should reside in the root directory.
 
 # variables
-COMPILER = gcc
+COMPILER = clang
+FINAL_FLAGS = -l argp
 FLAGS = -l argp
 
 all: dist/main 
@@ -12,14 +13,10 @@ all: dist/main
 # Produce the final executable
 # Include all required object files
 dist/main: dist build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o build/ArgumentParser.o
-	 ${COMPILER} ${FLAGS} -o dist/main build/main.o build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o build/ArgumentParser.o
+	 ${COMPILER} ${FINAL_FLAGS} -o dist/main build/Assessment.o build/Subject.o build/Estimation.o build/SubjectsFile.o build/Interface.o build/ArgumentParser.o build/main.o 
 
 dist:
 	mkdir dist
-
-# Build an object file for main
-build/main.o: src/main.c
-	 $(COMPILER) $(FLAGS) -o build/main.o -c src/main.c
 
 # Add object file compilation rules here
 build/Assessment.o: src/Assessment.c
@@ -38,7 +35,11 @@ build/Interface.o: src/Interface.c
 	$(COMPILER) $(FLAGS) -o build/Interface.o -c src/Interface.c
 
 build/ArgumentParser.o: src/ArgumentParser.c
-	$(COMPILER) -o build/ArgumentParser.o -c src/ArgumentParser.c
+	$(COMPILER) $(FLAGS) -o build/ArgumentParser.o -c src/ArgumentParser.c
+
+# Build an object file for main
+build/main.o: src/main.c
+	 $(COMPILER) $(FLAGS) -o build/main.o -c src/main.c
 
 # add all build files including ./main to the clean command
 clean:

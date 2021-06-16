@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     //be reflected in arguments.
     argp_parse(&Argp, argc, argv, 0, 0, &arguments);
 
-    printf ("ARG1 = %s\nARG2 = %s\nOUTPUT_FILE = %s\n"
+    printf("ARG1 = %s\nARG2 = %s\nOUTPUT_FILE = %s\n"
             "VERBOSE = %s\nSILENT = %s\n",
             arguments.args[0], arguments.args[1],
             arguments.output_file,
